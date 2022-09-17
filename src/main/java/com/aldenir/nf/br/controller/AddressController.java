@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/catalogo/locadora")
+@RequestMapping("/locadora/address")
 public class AddressController {
 
     @Autowired
@@ -20,22 +20,22 @@ public class AddressController {
     }
 
     @GetMapping("/{cep}")
-    public ResponseEntity<?> findById(@RequestParam("cep") Long cep) {
+    public ResponseEntity<?> findById(@PathVariable("cep") String cep) {
         return ResponseEntity.ok(service.findById(cep));
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Address user) {
-        return ResponseEntity.ok(service.save(user));
+    public ResponseEntity<?> save(@RequestBody Address address) throws Exception {
+        return ResponseEntity.ok(service.save(address));
     }
 
     @PutMapping("/{cep}")
-    public ResponseEntity<?> put(@RequestParam("cep") Long cep) {
+    public ResponseEntity<?> put(@PathVariable("cep") String cep) {
         return ResponseEntity.ok(service.update(cep));
     }
 
     @DeleteMapping("/{cep}")
-    public void delete(@RequestParam("cep") Long cep) {
+    public void delete(@PathVariable("cep") String cep) {
         service.delete(cep);
     }
 

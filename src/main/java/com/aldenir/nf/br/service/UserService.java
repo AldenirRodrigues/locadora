@@ -1,15 +1,10 @@
 package com.aldenir.nf.br.service;
 
-import com.aldenir.nf.br.model.Address;
 import com.aldenir.nf.br.model.User;
-import com.aldenir.nf.br.model.dto.AddressDTO;
 import com.aldenir.nf.br.model.dto.UserDTO;
 import com.aldenir.nf.br.repository.AddressRepository;
-import com.aldenir.nf.br.repository.CepApiService;
 import com.aldenir.nf.br.repository.UserRepository;
-import com.github.gilbertotorrezan.viacep.se.ViaCEPClient;
-import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
-import lombok.SneakyThrows;
+import com.aldenir.nf.br.util.GeraRgCpfCnpj;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -17,7 +12,6 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -40,23 +34,12 @@ public class UserService {
         BeanUtils.copyProperties(user, userDTO);
         return userDTO;
     }
-
-    @SneakyThrows
-    public UserDTO save(User user) {
-        UserDTO userDTO = new UserDTO();
-        AddressDTO addressDTO = new AddressDTO();
-        ViaCEPClient client = new ViaCEPClient();
-        ViaCEPEndereco endereco = client.getEndereco(user.getCep());
-
-        Address address = new Address();
-        address.setUf(endereco.getUf());
-        address.setCep(user.getCep());
-        address.setBairro(endereco.getBairro());
-        address.setLocalidade(endereco.getLocalidade());
-        address.setLogradouro(endereco.getLogradouro());
-        BeanUtils.copyProperties(addressRepository.save(address), addressDTO);
-        BeanUtils.copyProperties(repository.save(user), userDTO);
-        return userDTO;
+    public User save(User user) {
+        GeraRgCpfCnpj cpfCnpj = new GeraRgCpfCnpj();
+        if (!cpfCnpj.isCPF(String.valueOf(user.getCpf()))){
+            throw new RuntimeException("CPF inválido!");
+        }
+        return repository.save(user);
     }
 
     @CachePut(value = "User", key = "#id")

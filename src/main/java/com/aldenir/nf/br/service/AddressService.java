@@ -3,11 +3,15 @@ package com.aldenir.nf.br.service;
 import com.aldenir.nf.br.model.Address;
 import com.aldenir.nf.br.model.dto.AddressDTO;
 import com.aldenir.nf.br.repository.AddressRepository;
+import com.github.gilbertotorrezan.viacep.se.ViaCEPClient;
+import com.github.gilbertotorrezan.viacep.shared.ViaCEPEndereco;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AddressService {
@@ -19,28 +23,33 @@ public class AddressService {
         return repository.findAll();
     }
 
-    public AddressDTO findById(Long cep) {
-        AddressDTO addressDTO = new AddressDTO();
-        Address address = repository.findById(cep).orElseThrow(() -> new RuntimeException(""));
-        BeanUtils.copyProperties(address, addressDTO);
-        return addressDTO;
+    public Address findById(String cep) {
+        return repository.findById(Long.valueOf(cep)).orElseThrow(() -> new RuntimeException(""));
     }
 
-    public AddressDTO save(Address address) {
-        AddressDTO addressDTO = new AddressDTO();
-        BeanUtils.copyProperties(repository.save(address), addressDTO);
-        return addressDTO;
+    public Address save(Address address) throws Exception {
+
+        ViaCEPClient client = new ViaCEPClient();
+        ViaCEPEndereco endereco = client.getEndereco(address.getCep());
+
+        Address add = new Address();
+        add.setCep(address.getCep());
+        add.setNumber(address.getNumber());
+        add.setComplemento(address.getComplemento());
+        add.setUf(endereco.getUf());
+        add.setBairro(endereco.getBairro());
+        add.setLocalidade(endereco.getLocalidade());
+        add.setLogradouro(endereco.getLogradouro());
+
+        return repository.save(add);
     }
 
-    public AddressDTO update(Long cep) {
-        Address address = repository.findById(cep).orElseThrow(() -> new RuntimeException(""));
-        AddressDTO addressdto = new AddressDTO();
-        BeanUtils.copyProperties(address, addressdto);
-        return addressdto;
+    public Address update(String cep) {
+        return repository.findById(Long.valueOf(cep)).orElseThrow(() -> new RuntimeException(""));
     }
 
-    public void delete(Long cep) {
-        Address address = repository.findById(cep).orElseThrow(() -> new RuntimeException(""));
+    public void delete(String  cep) {
+        Address address = repository.findById(Long.valueOf(cep)).orElseThrow(() -> new RuntimeException(""));
         repository.delete(address);
     }
 

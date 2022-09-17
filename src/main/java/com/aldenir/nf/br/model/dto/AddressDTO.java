@@ -31,4 +31,5 @@ public class AddressDTO {
 
     @JsonProperty("complement")
     private String complemento;
+
 }
