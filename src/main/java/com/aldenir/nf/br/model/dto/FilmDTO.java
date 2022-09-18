@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-public class FilmDTO {
+public class FilmDTO implements Serializable {
 
     @JsonProperty("film_id")
     private Long id;
