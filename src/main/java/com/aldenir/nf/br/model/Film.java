@@ -44,4 +44,6 @@ public class Film implements Serializable {
     @Column(name = "BOX_OFFICE")
     private BigDecimal boxOffice;
 
+
+
 }

@@ -1,4 +1,4 @@
-package com.aldenir.nf.br.imdb;
+package com.aldenir.nf.br.model.imdb;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +11,7 @@ public class SearchData {
 
     public String searchType;
     public String expression;
+
     public List<SearchResult> results;
     public String errorMessage;
 }

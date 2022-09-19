@@ -17,10 +17,6 @@ import java.util.Set;
 public class Address implements Serializable {
 
     @Id
-    @Column(name = "ADDRESS_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(name = "ZIP_CODE")
     private String cep;
 

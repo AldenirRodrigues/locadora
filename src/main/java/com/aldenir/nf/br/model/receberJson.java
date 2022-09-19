@@ -1,20 +1,20 @@
-package com.aldenir.nf.br.imdb;
+package com.aldenir.nf.br.model;
 
 
-import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import com.aldenir.nf.br.model.DescFilm;
+import com.aldenir.nf.br.model.imdb.Film;
 
 public class receberJson {
 
     public static void main(String[] args)  {
 
-        Film film = new Film();
+        com.aldenir.nf.br.model.imdb.Film film = new Film();
         film.searchFilmsByTile("titanic");
+
+        DescFilm descFilm = new DescFilm();
+
+
+
 //        film.searchFilmsById("ls004285275");
 //        System.out.println(new Gson().toJson(film.searchFilmsByTile("titanic")));
 //

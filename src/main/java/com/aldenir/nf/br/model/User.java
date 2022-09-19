@@ -16,10 +16,6 @@ import java.util.Set;
 public class User implements Serializable {
 
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(name = "CPF", length = 11, unique = true)
     private Long cpf;
 
@@ -54,7 +50,7 @@ public class User implements Serializable {
     private String cep;
 
     @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ADDRESS_ID")
+    @JoinColumn(name = "ZIP_CODE")
     private Set<Address> address = new HashSet<>();
 
     @OneToMany(cascade = {CascadeType.ALL})
