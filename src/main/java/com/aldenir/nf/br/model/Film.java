@@ -1,7 +1,9 @@
 package com.aldenir.nf.br.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -15,6 +17,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "DB_FILM")
+@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
 public class Film implements Serializable {
 
     @Id
@@ -45,5 +48,8 @@ public class Film implements Serializable {
     private BigDecimal boxOffice;
 
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user")
+    private User user;
 
 }

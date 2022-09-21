@@ -89,12 +89,12 @@
 
     </dependencies>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>repsy</id>-->
-<!--            <url>https://repo.repsy.io/mvn/thalles/via-cep</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>repsy</id>-->
+    <!--            <url>https://repo.repsy.io/mvn/thalles/via-cep</url>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
 
     <build>
         <plugins>

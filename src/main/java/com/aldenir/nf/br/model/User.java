@@ -1,6 +1,8 @@
 package com.aldenir.nf.br.model;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "DB_USER")
+@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
 public class User implements Serializable {
 
     @Id
@@ -46,15 +49,10 @@ public class User implements Serializable {
     @Column(name = "SINGLE")
     private boolean single;
 
-    @Column(name = "ZIP_CODE")
-    private String cep;
-
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "ZIP_CODE")
+    @OneToMany( mappedBy = "address")
     private Set<Address> address = new HashSet<>();
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "FILM_ID")
+    @OneToMany(mappedBy = "user")
     private Set<Film> films = new HashSet<>();
 
 }

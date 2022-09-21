@@ -88,9 +88,9 @@ public class TitleData implements Serializable {
     @Column(name = "genres")
     private String genres;
 
-    @ElementCollection
-    @Column(name = "genre_list")
-    private List<Map<String, String>> genreList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private List<Genre> genreList = new ArrayList<>();
 
     @Column(name = "companies")
     private String companies;
@@ -102,16 +102,16 @@ public class TitleData implements Serializable {
     @Column(name = "countries")
     private String countries;
 
-    @ElementCollection
-    @Column(name = "country_list")
-    private List<Map<String, String>> countryList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private List<Country> countryList;
 
     @Column(name = "languages")
     private String languages;
 
-    @ElementCollection
-    @Column(name = "languageList")
-    private List<Map<String, String>> languageList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private List<Language> languageList;
 
     @Column(name = "content_rating")
     private String contentRating;
@@ -155,9 +155,9 @@ public class TitleData implements Serializable {
     @Column(name = "keywords")
     private String keywords;
 
-    @ElementCollection
-    @Column(name = "keyword_list")
-    private List<Map<String, String>> keywordList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private List<Keyword> keywordList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
