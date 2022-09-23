@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,17 +16,17 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "DB_USER")
-@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
-public class User implements Serializable {
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+public class User extends RepresentationModel<User> implements Serializable {
 
     @Id
-    @Column(name = "CPF", length = 11, unique = true)
+    @Column(name = "CPF", length = 11)
     private Long cpf;
 
-    @Column(name = "CNPJ", length = 14, unique = true)
+    @Column(name = "CNPJ", length = 14)
     private Long cnpj;
 
-    @Column(name = "RG", length = 9, unique = true)
+    @Column(name = "RG", length = 9)
     private Long rg;
 
     @Column(name = "PRIMARY_NAME")
@@ -34,10 +35,10 @@ public class User implements Serializable {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name = "EMAIL", unique = true)
+    @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "PHONE", length = 11, unique = true)
+    @Column(name = "PHONE", length = 11)
     private String phone;
 
     @Column(name = "GENDER")
@@ -49,7 +50,7 @@ public class User implements Serializable {
     @Column(name = "SINGLE")
     private boolean single;
 
-    @OneToMany( mappedBy = "address")
+    @OneToMany(mappedBy = "address")
     private Set<Address> address = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
