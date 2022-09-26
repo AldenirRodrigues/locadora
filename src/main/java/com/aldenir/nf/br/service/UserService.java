@@ -5,7 +5,7 @@ import com.aldenir.nf.br.model.User;
 import com.aldenir.nf.br.model.dto.UserDTO;
 import com.aldenir.nf.br.repository.AddressRepository;
 import com.aldenir.nf.br.repository.UserRepository;
-import com.aldenir.nf.br.util.GeraRgCpfCnpj;
+import com.google.gson.Gson;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -14,6 +14,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -29,24 +30,24 @@ public class UserService {
 
     @Cacheable(value = "User")
     public List<User> findAll() {
-
         return repository.findAll();
     }
 
     @Cacheable(value = "User", key = "#id")
     public User findById(Long id) {
-        UserDTO userDTO = new UserDTO();
-        User user = repository.findById(id).orElseThrow(() -> new RuntimeException(""));
-        BeanUtils.copyProperties(user, userDTO);
-        return user.add(linkTo(methodOn(UserController.class).findById(id)).withSelfRel());
+        return repository.findById(id).orElseThrow(() -> new RuntimeException(""));
     }
 
-    public User save(User user) {
+    public UserDTO save(UserDTO userDTO) {
 //        GeraRgCpfCnpj cpfCnpj = new GeraRgCpfCnpj();
 //        if (!cpfCnpj.isCPF(String.valueOf(user.getCpf()))) {
 //            throw new RuntimeException("CPF inválido!");
 //        }
-        return repository.save(user);
+        User user = new User();
+        BeanUtils.copyProperties(userDTO, user);
+        repository.save(user);
+
+        return userDTO;
     }
 
     @CachePut(value = "User", key = "#id")

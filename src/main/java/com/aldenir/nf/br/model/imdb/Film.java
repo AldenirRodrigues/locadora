@@ -10,8 +10,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-@RestController
-@RequestMapping
+//@RestController
+//@RequestMapping
 public class Film {
 
     @SneakyThrows
@@ -23,11 +23,11 @@ public class Film {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest requestId = HttpRequest.newBuilder().uri(imdbuUri).GET().build();
         HttpResponse response = client.send(requestId, HttpResponse.BodyHandlers.ofString());
-        SearchData searchData = new Gson().fromJson(response.body().toString(), SearchData.class);
-        searchData.results.forEach(searchResult -> {
-            searchFilmsById(searchResult.getId());
-        });
-        System.out.println(new Gson().toJson(searchData));
+//        SearchData searchData = new Gson().fromJson(response.body().toString(), SearchData.class);
+//        searchData.results.forEach(searchResult -> {
+//            searchFilmsById(searchResult.getId());
+//        });
+//        System.out.println(new Gson().toJson(searchData));
         return new Gson().fromJson(response.body().toString(), SearchData.class);
     }
 
@@ -42,7 +42,7 @@ public class Film {
         String json = response.body().toString();
 //        descFilm(new Gson().fromJson(json, TitleData.class));
 //        System.out.println(json);
-        System.out.println(new Gson().fromJson(json, TitleData.class));
+//        System.out.println(new Gson().fromJson(json, TitleData.class));
         return new Gson().fromJson(json, TitleData.class);
     }
 //    public DescFilm descFilm(TitleData titleData){

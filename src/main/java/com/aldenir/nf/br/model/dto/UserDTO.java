@@ -1,27 +1,25 @@
 package com.aldenir.nf.br.model.dto;
 
 import com.aldenir.nf.br.model.Address;
-import com.aldenir.nf.br.model.Film;
+import com.aldenir.nf.br.model.Filme;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
+import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
-public class UserDTO  {
+public class UserDTO extends RepresentationModel<UserDTO> implements Serializable{
 
-    @JsonProperty("user_id")
-    private Long id;
-
+    @Id
     @JsonProperty("cpf")
     private Long cpf;
 
     @JsonProperty("cnpj")
     private Long cnpj;
-
-    @JsonProperty("cep")
-    private String cep;
 
     @JsonProperty("rg")
     private Long rg;
@@ -48,10 +46,9 @@ public class UserDTO  {
     private boolean single;
 
     @JsonProperty("address")
-    private Set<Address> address;
+    private Set<Address> address = new HashSet<>();
 
     @JsonProperty("films")
-    private Set<Film> films;
-
+    private Set<Filme> filmes = new HashSet<>();
 
 }

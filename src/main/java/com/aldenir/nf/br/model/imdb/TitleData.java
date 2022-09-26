@@ -1,7 +1,9 @@
 package com.aldenir.nf.br.model.imdb;
 
+import com.aldenir.nf.br.model.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +13,7 @@ import java.util.*;
 @Setter
 @Entity
 @Table(name = "tb_title_data")
-public class TitleData implements Serializable {
+public class TitleData extends RepresentationModel<TitleData>  implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)

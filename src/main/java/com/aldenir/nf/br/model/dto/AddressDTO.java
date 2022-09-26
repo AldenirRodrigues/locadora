@@ -8,9 +8,6 @@ import java.io.Serializable;
 @Data
 public class AddressDTO {
 
-    @JsonProperty("address_id")
-    private Long id;
-
     @JsonProperty("zipCode")
     private Long cep;
 

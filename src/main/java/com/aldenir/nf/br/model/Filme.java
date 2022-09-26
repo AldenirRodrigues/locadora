@@ -10,15 +10,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "DB_FILM")
 @NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
-public class Film implements Serializable {
+public class Filme implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

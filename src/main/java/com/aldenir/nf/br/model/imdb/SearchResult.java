@@ -2,6 +2,7 @@ package com.aldenir.nf.br.model.imdb;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "tb_search_result")
-public class SearchResult implements Serializable {
+public class SearchResult extends RepresentationModel<SearchResult>  implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)

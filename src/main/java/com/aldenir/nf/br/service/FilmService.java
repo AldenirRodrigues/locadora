@@ -1,7 +1,8 @@
 package com.aldenir.nf.br.service;
 
-import com.aldenir.nf.br.model.Film;
-import com.aldenir.nf.br.model.dto.FilmDTO;
+import com.aldenir.nf.br.model.Filme;
+import com.aldenir.nf.br.model.imdb.Film;
+import com.aldenir.nf.br.model.imdb.TitleData;
 import com.aldenir.nf.br.repository.FilmRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,32 +16,27 @@ public class FilmService {
     @Autowired
     private FilmRepository repository;
 
-    public List<Film> findAll(){
+    public List<TitleData> findAll(){
         return repository.findAll();
     }
 
-    public FilmDTO findById(Long id){
-        FilmDTO filmDTO = new FilmDTO();
-        Film film = repository.findById(id).orElseThrow(() -> new RuntimeException(""));
-        BeanUtils.copyProperties(film, filmDTO);
-        return filmDTO;
+    public TitleData findById(String id){
+        TitleData titleData = repository.findById(id).orElseThrow(() -> new RuntimeException(""));
+        return titleData;
     }
-    public FilmDTO save(Film film) {
-        FilmDTO filmDTO = new FilmDTO();
-        BeanUtils.copyProperties(repository.save(film), filmDTO);
-        return filmDTO;
+    public TitleData save(String  id) {
+        TitleData titleData = repository.save(new Film().searchFilmsById(id));
+        return titleData;
     }
 
-    public FilmDTO update(Long id) {
-        Film film = repository.findById(id).orElseThrow(() -> new RuntimeException(""));
-        FilmDTO filmDTO = new FilmDTO();
-        BeanUtils.copyProperties(repository.save(film), filmDTO);
-        return filmDTO;
+    public TitleData update(String id) {
+        TitleData titleData = repository.save(new Film().searchFilmsById(id));
+        return titleData;
     }
 
-    public void delete(Long id){
-        Film film = repository.findById(id).orElseThrow(() -> new RuntimeException(""));
-        repository.delete(film);
+    public void delete(String id){
+        TitleData titleData = repository.save(new Film().searchFilmsById(id));
+        repository.delete(titleData);
     }
 
 }

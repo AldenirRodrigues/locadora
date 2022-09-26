@@ -1,8 +1,6 @@
 package com.aldenir.nf.br.model;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -16,7 +14,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "DB_USER")
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class User extends RepresentationModel<User> implements Serializable {
 
     @Id
@@ -54,6 +51,6 @@ public class User extends RepresentationModel<User> implements Serializable {
     private Set<Address> address = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Film> films = new HashSet<>();
+    private Set<Filme> filmes = new HashSet<>();
 
 }
